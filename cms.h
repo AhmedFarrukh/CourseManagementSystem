@@ -14,8 +14,7 @@ class Student{
         void setGrade(Course course_graded, double g);
         void printCourses();
         string getName(){return name;}
-        Course getCourse(int i);
-        //void setGrade(double grade){this->grade=grade;}
+        Course& getCourse(int i);
 };
 class Faculty{
     private:
@@ -30,7 +29,7 @@ class Faculty{
         void setCourseDescription(int i);
         void setGrades(int i);
         void printCourses();
-        Course getCourse(int i);
+        Course& getCourse(int i);
         
 };
 class Course{
@@ -72,7 +71,7 @@ class Course{
             // outFile2<<"The course materials for this class are yet to be updated"<<endl;
             // outFile2.close();
         }
-        void addStudent(Student newstudent){
+        void addStudent(Student &newstudent){
             students.push_back(newstudent);
         }
         void addFaculty(Faculty newinstructor){
@@ -126,7 +125,7 @@ class Course{
             double sum=0;
             cout<<"The grades are as follows: "<<endl;
             for(int i=0;i<students.size();i++){
-                cout<<students[i].getName()<<"  "<<students[i].getGrade(courseNumber)<<endl;//make pretty
+                cout<<setw(40)<<left<<students[i].getName()<<setw(5)<<left<<students[i].getGrade(courseNumber)<<endl;//make pretty
                 sum+=students[i].getGrade(courseNumber);
             }
             cout<<"The average grade is "<<sum/(double)students.size()<<endl;
@@ -155,8 +154,9 @@ void Student::setGrade(Course course_graded, double g){
         }
     }
     grades[i]=g;
+    cout<<grades[i]<<endl;
 }
-Course Student::getCourse(int i){return *courses[i];}
+Course& Student::getCourse(int i){return *courses[i];}
 void Faculty:: setSyllabus(int i){
             cout<<"Please enter the name for the syllabus file"<<endl;
             string file_name;
@@ -177,23 +177,20 @@ void Faculty:: setCourseDescription(int i){
     courses[i]->courseDescription=newdescription;
 }
 void Faculty:: setGrades(int i){
-    cout<<"Please select the index for the student whose grade you want to update"<<endl;
-    for(int j=0;i<courses.size();j++){
-        cout<<courses[i]->students[j].getName()<<endl;
-    }
-    int j;
-    cin>>j;
-    cout<<"Please enter the number grade"<<endl;
     double g;
-    cin>>g;
-    courses[i]->students[j].setGrade(*courses[i],g);
+    cout<<"Please enter the grade for each student"<<endl;
+    for(int j=0;j<courses[i]->students.size();j++){
+        cout<<setw(20)<<left<<courses[i]->students[j].getName();
+        cin>>g;
+        courses[i]->students[j].setGrade(*courses[i],g);
+    }
 }
 void Faculty::printCourses(){
     for(int i=0;i<courses.size();i++){
         cout<<i<<"  "<<courses[i]->courseName<<endl;
     }
 }
-Course Faculty::getCourse(int i){return *courses[i];}
+Course& Faculty::getCourse(int i){return *courses[i];}
 Faculty:: Faculty(string name, vector<Course*>& courses){
             this->name=name;
             this->courses=courses;
