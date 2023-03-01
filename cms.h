@@ -6,23 +6,24 @@ class Course;
 class Student{
     private:
         string name;
-        vector <Course> courses;
+        vector <Course*> courses;
         vector <double> grades;//holds grade for each course
     public:
-        Student(string name, vector<Course>& courses);
+        Student(string name, vector<Course*>& courses);
         double getGrade(int i){return grades[i];}//returns grade for course with index i
         void setGrade(Course course_graded, double g);
         void printCourses();
+        
         string getName(){return name;}
         //void setGrade(double grade){this->grade=grade;}
 };
 class Faculty{
     private:
         string name;
-        vector <Course> courses;
+        vector <Course*> courses;
     public:
         Faculty(){}
-        Faculty(string name, vector<Course>& courses);
+        Faculty(string name, vector<Course*>& courses);
         string getName(){return name;}
         void setSyllabus(int i);
         void setCourseMaterialFile(int i);
@@ -124,23 +125,23 @@ class Course{
         string getCourseName(){return courseName;}
 };
 int Course:: numOfCourses=0;
-Student::Student(string name, vector<Course>& courses){//initializes grade vector, and other variables
+Student::Student(string name, vector<Course*>& courses){//initializes grade vector, and other variables
             this->name=name;
             this->courses=courses;
             for(int i=0;i<courses.size();i++){//creates grades vector and adds student to course object
                 grades.push_back(0);
-                courses[i].addStudent(*this);
+                courses[i]->addStudent(*this);
             }
         }
 void Student::printCourses(){
             for(int i=0;i<courses.size();i++){
-                cout<<courses[i].getCourseName()<<endl;
+                cout<<i<<"  "<<courses[i]->getCourseName()<<endl;
             }
         }
 void Student::setGrade(Course course_graded, double g){
     int i;
     for(i=0;i<courses.size();i++){
-        if(courses[i].getCourseName()==course_graded.getCourseName()){
+        if(courses[i]->getCourseName()==course_graded.getCourseName()){
             break;
         }
     }
@@ -150,41 +151,41 @@ void Faculty:: setSyllabus(int i){
             cout<<"Please enter the name for the syllabus file"<<endl;
             string file_name;
             cin>>file_name;
-            courses[i].syllabusFile=file_name;
+            courses[i]->syllabusFile=file_name;
         }
 void Faculty:: setCourseMaterialFile(int i){
             cout<<"Please enter the name for the course materials file"<<endl;
             string file_name;
             cin>>file_name;
-            courses[i].courseMaterialFile=file_name;
+            courses[i]->courseMaterialFile=file_name;
         }
 void Faculty:: setCourseDescription(int i){
     cout<<"Please enter the new course description"<<endl;
     string newdescription;
     getline(cin,newdescription);
-    courses[i].courseDescription=newdescription;
+    courses[i]->courseDescription=newdescription;
 }
 void Faculty:: setGrades(int i){
     cout<<"Please select the index for the student whose grade you want to update"<<endl;
     for(int j=0;i<courses.size();j++){
-        cout<<courses[i].students[j].getName()<<endl;
+        cout<<courses[i]->students[j].getName()<<endl;
     }
     int j;
     cin>>j;
     cout<<"Please enter the number grade"<<endl;
     double g;
     cin>>g;
-    courses[i].students[j].setGrade(courses[i],g);
+    courses[i]->students[j].setGrade(*courses[i],g);
 }
 void Faculty::printCourses(){
     for(int i=0;i<courses.size();i++){
-        cout<<courses[i].courseName<<endl;
+        cout<<courses[i]->courseName<<endl;
     }
 }
-Faculty:: Faculty(string name, vector<Course>& courses){
+Faculty:: Faculty(string name, vector<Course*>& courses){
             this->name=name;
             this->courses=courses;
             for(int i=0;i<courses.size();i++){
-                courses[i].addFaculty(*this);
+                courses[i]->addFaculty(*this);
             }
         }
