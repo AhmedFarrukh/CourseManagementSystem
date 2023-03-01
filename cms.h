@@ -11,7 +11,7 @@ class Student{
     public:
         Student(string name, vector<Course*>& courses);
         double getGrade(int i){return grades[i];}//returns grade for course with index i
-        void setGrade(Course course_graded, double g);
+        void setGrade(Course& course_graded, double g);
         void printCourses();
         string getName(){return name;}
         Course& getCourse(int i);
@@ -51,8 +51,6 @@ class Course{
             courseMaterialFile="coursematerial"+courseName+(char)courseNumber;
             numOfCourses++;
             courseNumber=numOfCourses;
-            syllabusFile=" ";
-            courseMaterialFile=" ";
             // ofstream outFile1;
             // outFile1.open(syllabusFile,ios::out);
             // if(outFile1.fail()){
@@ -71,41 +69,41 @@ class Course{
             // outFile2<<"The course materials for this class are yet to be updated"<<endl;
             // outFile2.close();
         }
-        void addStudent(Student &newstudent){
+        void addStudent(Student& newstudent){
             students.push_back(newstudent);
         }
         void addFaculty(Faculty newinstructor){
             instructor=newinstructor;
         }
-        void printSyllabus(){
+        void printSyllabus(){//add exception for f
             try{
-            if (syllabusFile==" "){throw(syllabusFile);}
             ifstream inFile;
             inFile.open(syllabusFile,ios::in);
             if(inFile.fail()){
-                cout<<"There was an error opening the syllabus file"<<endl;
-                exit(-1);
+                throw(syllabusFile);
             }
+            char character;
             while(!inFile.eof()){
-                cout<<inFile.get();
+                character=inFile.get();
+                if(character==inFile.eof()){break;}
+                cout<<character;
             }
+            cout<<endl;
             inFile.close();
-            }catch(string syllabusFile){cout<<"The syllabus file is yet to be updated by the instructor"<<endl;}
+            }catch(string syllabusFile){cout<<"There was an error opening the syllabus file.\n Note that the syllabus is only available once the instructor has uploaded it."<<endl;}
         }
         void printCourseMaterials(){
             try{
-            if (courseMaterialFile==" "){throw(courseMaterialFile);}
             ifstream inFile;
             inFile.open(courseMaterialFile,ios::in);
             if(inFile.fail()){
-                cout<<"There was an error opening the course materials file"<<endl;
-                exit(-1);
+                throw(courseMaterialFile);
             }
             while(!inFile.eof()){
                 cout<<inFile.get();
             }
             inFile.close();
-            }catch(string courseMaterialFile){cout<<"The course materials file is yet to be updated by the instructor"<<endl;}
+            }catch(string courseMaterialFile){cout<<"The course materials file is yet to be updated by the instructor.\nNote that the file is only available once the instructor has uploaded it."<<endl;}
         }
         void printClassList(){
             cout<<"Following is the class list for "<<courseName<<endl;
@@ -146,7 +144,7 @@ void Student::printCourses(){
                 cout<<i<<"  "<<courses[i]->getCourseName()<<endl;
             }
         }
-void Student::setGrade(Course course_graded, double g){
+void Student::setGrade(Course& course_graded, double g){
     int i;
     for(i=0;i<courses.size();i++){
         if(courses[i]->getCourseName()==course_graded.getCourseName()){

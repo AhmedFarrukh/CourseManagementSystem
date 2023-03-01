@@ -118,6 +118,7 @@ int main() {
                 print(6,"Upload Syllabus");
                 print(7,"Upload Course Materials");
                 print(8,"Set Class Grades");
+                print(9,"Print Class List");
                 print(-1,"Exit Faculty View");
                 if(option_select==-1){break;}
                 cin>>option_select;
@@ -147,6 +148,9 @@ int main() {
                 }
                 else if(option_select==8){
                     faculty[faculty_select].setGrades(course_select);
+                }
+                else if(option_select==9){
+                    faculty[faculty_select].getCourse(course_select).printClassList();
                 }
                 else {cout<<"You have made the wrong selection"<<endl;}
             }while(option_select!=-1);
