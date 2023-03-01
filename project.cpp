@@ -1,6 +1,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <iomanip>
 #include "cms.h"
 using namespace std;
 inline void print(int i, string s){cout<<i<<"  "<<s<<endl;}
@@ -102,13 +103,11 @@ int main() {
             }
             cin>>faculty_select;
             int course_select;
-            do{
                 cout<<"Please select the index for the course whose information is to be viewed/edited"<<endl;
                 faculty[faculty_select].printCourses();
-                print(-1,"Exit Faculty View");
                 cin>>course_select;
-                if (course_select==-1){break;}
                 int option_select;
+            do{
                 cout<<"Please select the appropriate option to proceed"<<endl;
                 print(0,"View Course Description");
                 print(1,"View Course Details");
@@ -119,6 +118,8 @@ int main() {
                 print(6,"Upload Syllabus");
                 print(7,"Upload Course Materials");
                 print(8,"Set Class Grades");
+                print(-1,"Exit Faculty View");
+                if(option_select==-1){break;}
                 cin>>option_select;
                 if(option_select==0){
                     faculty[faculty_select].getCourse(course_select).printCourseDescription();
@@ -144,9 +145,11 @@ int main() {
                 else if(option_select==7){
                     faculty[faculty_select].setCourseMaterialFile(course_select);
                 }
-                else if(option_select==8){}
-                else {}
-            }while(course_select!=-1);
+                else if(option_select==8){
+                    faculty[faculty_select].setGrades(course_select);
+                }
+                else {cout<<"You have made the wrong selection"<<endl;}
+            }while(option_select!=-1);
         }
         else if(view_selection!='e'||view_selection!='E'){break;}
         else{cout<<"You have selected an incorrect option"<<endl;}
