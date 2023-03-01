@@ -38,7 +38,7 @@ class Course{
         string courseName;
         static int numOfCourses;
         Faculty instructor;
-        vector<Student> students;
+        vector<Student*> students;
         string courseDescription;
         int courseNumber;
         string syllabusFile;
@@ -69,8 +69,8 @@ class Course{
             // outFile2<<"The course materials for this class are yet to be updated"<<endl;
             // outFile2.close();
         }
-        void addStudent(Student& newstudent){
-            students.push_back(newstudent);
+        void addStudents(vector<Student*> students){
+            this->students=students;
         }
         void addFaculty(Faculty newinstructor){
             instructor=newinstructor;
@@ -108,7 +108,7 @@ class Course{
         void printClassList(){
             cout<<"Following is the class list for "<<courseName<<endl;
             for (int i=0;i<students.size();i++){
-                cout<<students[i].getName()<<endl;
+                cout<<students[i]->getName()<<endl;
             }
         }
         void printCourseDetails(){
@@ -123,8 +123,8 @@ class Course{
             double sum=0;
             cout<<"The grades are as follows: "<<endl;
             for(int i=0;i<students.size();i++){
-                cout<<setw(40)<<left<<students[i].getName()<<setw(5)<<left<<students[i].getGrade(courseNumber)<<endl;//make pretty
-                sum+=students[i].getGrade(courseNumber);
+                cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(courseNumber)<<endl;//make pretty
+                sum+=students[i]->getGrade(courseNumber);
             }
             cout<<"The average grade is "<<sum/(double)students.size()<<endl;
         }
@@ -136,7 +136,7 @@ Student::Student(string name, vector<Course*>& courses){//initializes grade vect
             this->courses=courses;
             for(int i=0;i<courses.size();i++){//creates grades vector and adds student to course object
                 grades.push_back(0);
-                courses[i]->addStudent(*this);
+                //courses[i]->addStudent(*this);
             }
         }
 void Student::printCourses(){
@@ -152,7 +152,7 @@ void Student::setGrade(Course& course_graded, double g){
         }
     }
     grades[i]=g;
-    cout<<grades[i]<<endl;
+
 }
 Course& Student::getCourse(int i){return *courses[i];}
 void Faculty:: setSyllabus(int i){
@@ -178,9 +178,9 @@ void Faculty:: setGrades(int i){
     double g;
     cout<<"Please enter the grade for each student"<<endl;
     for(int j=0;j<courses[i]->students.size();j++){
-        cout<<setw(20)<<left<<courses[i]->students[j].getName();
+        cout<<setw(20)<<left<<courses[i]->students[j]->getName();
         cin>>g;
-        courses[i]->students[j].setGrade(*courses[i],g);
+        courses[i]->students[j]->setGrade(*courses[i],g);
     }
 }
 void Faculty::printCourses(){

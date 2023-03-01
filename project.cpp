@@ -42,6 +42,16 @@ int main() {
     students.push_back(Student("Cedric Diggory", courses));
     students.push_back(Student("Luna Lovegood", courses));
     students.push_back(Student("Dean Thomas", courses));
+    //
+    vector<Student*> studentptrs;
+    for(int i=0;i<students.size();i++){
+        studentptrs.push_back(&students[i]);
+    }
+    //adding students to courses
+    courses[0]->addStudents(studentptrs);
+    courses[1]->addStudents(studentptrs);
+    courses[2]->addStudents(studentptrs);
+    courses[3]->addStudents(studentptrs);
 
     char view_selection='S';
     cout<<"Welcome to Hogwarts School of Witchcraft and Wizardry!"<<endl;
