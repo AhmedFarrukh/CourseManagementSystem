@@ -1,4 +1,4 @@
-#include <string>
+#include <string>// add member class to demonstrate inheritance
 #include <vector>
 #include <fstream>
 using namespace std;
@@ -9,7 +9,7 @@ class Student{
         vector <Course> courses;
         vector <double> grades;//holds grade for each course
     public:
-        Student(string name, vector<Course> courses);
+        Student(string name, vector<Course>& courses);
         double getGrade(int i){return grades[i];}//returns grade for course with index i
         void setGrade(Course course_graded, double g);
         void printCourses();
@@ -22,10 +22,7 @@ class Faculty{
         vector <Course> courses;
     public:
         Faculty(){}
-        Faculty(string name, vector<Course>& courses){
-            this->name=name;
-            this->courses=courses;
-        }
+        Faculty(string name, vector<Course>& courses);
         string getName(){return name;}
         void setSyllabus(int i);
         void setCourseMaterialFile(int i);
@@ -53,29 +50,29 @@ class Course{
             courseMaterialFile="coursematerial"+courseName+(char)courseNumber;
             numOfCourses++;
             courseNumber=numOfCourses;
-            ofstream outFile1;
-            outFile1.open(syllabusFile,ios::out);
-            if(outFile1.fail()){
-                cout<<"There was an error opening the syllabus file"<<endl;
-                exit(-1);
-            }
-            outFile1<<"The syllabus for this class is yet to be updated"<<endl;
-            outFile1.close();
+            // ofstream outFile1;
+            // outFile1.open(syllabusFile,ios::out);
+            // if(outFile1.fail()){
+            //     cout<<"There was an error opening the syllabus file"<<endl;
+            //     exit(-1);
+            // }
+            // outFile1<<"The syllabus for this class is yet to be updated"<<endl;
+            // outFile1.close();
 
-            ofstream outFile2;
-            outFile2.open(courseMaterialFile,ios::out);
-            if(outFile2.fail()){
-                cout<<"There was an error opening the course materials file"<<endl;
-                exit(-1);
-            }
-            outFile2<<"The course materials for this class are yet to be updated"<<endl;
-            outFile2.close();
+            // ofstream outFile2;
+            // outFile2.open(courseMaterialFile,ios::out);
+            // if(outFile2.fail()){
+            //     cout<<"There was an error opening the course materials file"<<endl;
+            //     exit(-1);
+            // }
+            // outFile2<<"The course materials for this class are yet to be updated"<<endl;
+            // outFile2.close();
         }
         void addStudent(Student newstudent){
             students.push_back(newstudent);
         }
         void addFaculty(Faculty newinstructor){
-            this->instructor=newinstructor;
+            instructor=newinstructor;
         }
         void printSyllabus(){
             ifstream inFile;
@@ -127,7 +124,7 @@ class Course{
         string getCourseName(){return courseName;}
 };
 int Course:: numOfCourses=0;
-Student::Student(string name, vector<Course> courses){//initializes grade vector, and other variables
+Student::Student(string name, vector<Course>& courses){//initializes grade vector, and other variables
             this->name=name;
             this->courses=courses;
             for(int i=0;i<courses.size();i++){//creates grades vector and adds student to course object
@@ -184,3 +181,10 @@ void Faculty::printCourses(){
         cout<<courses[i].courseName<<endl;
     }
 }
+Faculty:: Faculty(string name, vector<Course>& courses){
+            this->name=name;
+            this->courses=courses;
+            for(int i=0;i<courses.size();i++){
+                courses[i].addFaculty(*this);
+            }
+        }
