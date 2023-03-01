@@ -56,14 +56,17 @@ int main() {
             int student_select;
             cout<<"Please enter the index for your name!"<<endl;
             for(int i=0;i<students.size();i++){
-                cout<<i<<"  "<<students[i].getName()<<endl;
+                print(i,students[i].getName());
             }
             cin>>student_select;
             //print courses for the student selected
             int course_select;
+            do{
             cout<<"Please enter the index for the course whose details are to be accessed"<<endl;
             students[student_select].printCourses();
+            print(-1,"Exit Student View");
             cin>>course_select;
+            if(course_select==-1){break;}
             //print the different functions available for students
             int option_select;
             cout<<"Please note the options below and enter the appropriate number to proceed"<<endl;
@@ -74,24 +77,76 @@ int main() {
             print(4,"View Grade");
             cin>>option_select;
             if(option_select==0){
-                students[student_select].courses[course_select]->printCourseDescription();
+                students[student_select].getCourse(course_select).printCourseDescription();
             }
             else if(option_select==1){
-                students[student_select].courses[course_select]->printCourseDetails();
+                students[student_select].getCourse(course_select).printCourseDetails();
             }
             else if(option_select==2){
-                students[student_select].courses[course_select]->printSyllabus();
+                students[student_select].getCourse(course_select).printSyllabus();
             }
             else if(option_select==3){
-                students[student_select].courses[course_select]->printCourseMaterials();
+                students[student_select].getCourse(course_select).printCourseMaterials();
             }
             else if(option_select==4){
-                cout<<students[student_select].grades[course_select]<<endl;
+                cout<<students[student_select].getGrade(course_select)<<endl;
             }
             else {cout<<"Incorrect option was selected"<<endl;}
+            }while(course_select!=-1);
         }
         else if(view_selection=='f'||view_selection=='F'){
-
+            int faculty_select;
+            cout<<"Please select the index for your name"<<endl;
+            for(int i=0;i<faculty.size();i++){
+                print(i,faculty[i].getName());
+            }
+            cin>>faculty_select;
+            int course_select;
+            do{
+                cout<<"Please select the index for the course whose information is to be viewed/edited"<<endl;
+                faculty[faculty_select].printCourses();
+                print(-1,"Exit Faculty View");
+                cin>>course_select;
+                if (course_select==-1){break;}
+                int option_select;
+                cout<<"Please select the appropriate option to proceed"<<endl;
+                print(0,"View Course Description");
+                print(1,"View Course Details");
+                print(2,"View the Syllabus");
+                print(3,"View the Course Materials");
+                print(4,"View Class Grades");
+                print(5,"Edit Course Description");
+                print(6,"Upload Syllabus");
+                print(7,"Upload Course Materials");
+                print(8,"Set Class Grades");
+                cin>>option_select;
+                if(option_select==0){
+                    faculty[faculty_select].getCourse(course_select).printCourseDescription();
+                }
+                else if(option_select==1){
+                    faculty[faculty_select].getCourse(course_select).printCourseDetails();
+                }
+                else if(option_select==2){
+                    faculty[faculty_select].getCourse(course_select).printSyllabus();
+                }
+                else if(option_select==3){
+                    faculty[faculty_select].getCourse(course_select).printCourseMaterials();
+                }
+                else if(option_select==4){
+                    faculty[faculty_select].getCourse(course_select).printClassGrades();
+                }
+                else if(option_select==5){
+                    faculty[faculty_select].setCourseDescription(course_select);
+                }
+                else if(option_select==6){
+                    faculty[faculty_select].setSyllabus(course_select);
+                }
+                else if(option_select==7){
+                    faculty[faculty_select].setCourseMaterialFile(course_select);
+                }
+                else if(option_select==8){}
+                else {}
+            }while(course_select!=-1);
         }
         else if(view_selection!='e'||view_selection!='E'){break;}
         else{cout<<"You have selected an incorrect option"<<endl;}
