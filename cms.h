@@ -114,7 +114,7 @@ class Course{
                         }
                     }
                 cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
-                sum+=students[i]->getGrade(courseNumber-1);
+                sum+=students[i]->getGrade(j);
             }
             cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
         }
