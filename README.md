@@ -22,17 +22,17 @@ To ensure you understand the requirements of the project, a checklist in (a) pro
 
 ### (a) Check-list
 Check the list below as they are completed using the [x] symbol.
-- [ ] Read this document.
-- [ ] Understand the evaluation scheme.
-- [ ] Submit code files into this repo under the __code/__ directory.
-- [ ] Ensure code files can be executed in a Github codespace environment.
+- [x] Read this document.
+- [x] Understand the evaluation scheme.
+- [x] Submit code files into this repo under the __code/__ directory.
+- [x] Ensure code files can be executed in a Github codespace environment.
 - [ ] Provide a screenshot of your code's output.
-- [ ] Submit your report in `Report.md`.
-- [ ] Complete the self-assessment according to the defined evaluation scheme.
-  - [ ] Complete the self-assessment table (b) below.
-  - [ ] Enumerate location of implemented concepts in section (c) below.
+- [x] Submit your report in `Report.md`.
+- [x] Complete the self-assessment according to the defined evaluation scheme.
+  - [x] Complete the self-assessment table (b) below.
+  - [x] Enumerate location of implemented concepts in section (c) below.
 
-I declare that I have read and completed the above checked item in the list: [Insert name], [Insert date]
+I declare that I have read and completed the above checked item in the list: [Ahmed Farrukh], [3rd March, 2023]
 
 ### (b) Complete this table:
 The table below lists the elements in which you project will be assessessed. Please insert a self-assessment score for each element you implemented in the project in the table section (b).
@@ -40,19 +40,19 @@ The table below lists the elements in which you project will be assessessed. Ple
 |              | Points | Student's Evaluation     | Instructor's Evaluation |
 | ------------ | ------ | ------------------------ | ----------------------- |
 | __Code:__    |        |                          |                         |
-| Readibility  | 3      | [Insert self-assessment] |                         |
-| Optimization | 3      | [Insert self-assessment] |                         |
-| OOP Concepts | 3      | [Insert self-assessment] |                         |
-| Output       | 3      | [Insert self-assessment] |                         |
-| Correctness  | 3      | [Insert self-assessment] |                         |
+| Readibility  | 3      | [          3           ] |                         |
+| Optimization | 3      | [          3           ] |                         |
+| OOP Concepts | 3      | [          3           ] |                         |
+| Output       | 3      | [          3           ] |                         |
+| Correctness  | 3      | [          3           ] |                         |
 | **Report:**  |        |                          |                         |
-| Engaging     | 3      | [Insert self-assessment] |                         |
-| Grammar      | 3      | [Insert self-assessment] |                         |
-| Structure    | 3      | [Insert self-assessment] |                         |
-| Visual       | 3      | [Insert self-assessment] |                         |
-| Content      | 3      | [Insert self-assessment] |                         |
-| References   | 3      | [Insert self-assessment] |                         |
-| Total        | 33     | [Insert self-assessment] |                         |
+| Engaging     | 3      | [          3           ] |                         |
+| Grammar      | 3      | [          3           ] |                         |
+| Structure    | 3      | [          3           ] |                         |
+| Visual       | 3      | [          3           ] |                         |
+| Content      | 3      | [          3           ] |                         |
+| References   | 3      | [          3           ] |                         |
+| Total        | 33     | [          33          ] |                         |
 
 
 ### (c) Fill in this section:
