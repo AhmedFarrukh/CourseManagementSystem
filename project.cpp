@@ -4,14 +4,20 @@
 #include <iomanip>
 #include "cms.h"
 using namespace std;
+//inline functions for optimized printing
 inline void print(int i, string s){cout<<i<<"  "<<s<<endl;}
 int main() {
+    //Up until the first print statement, the code creates student, faculty and course objects. 
+    //While this is, ofcourse, neccessary for the project, it is not the main focus as the project is a learning management system 
+    //that is assumed to have already recieved this data. 
     //Creating Courses
     Course A("Portions","Learn the art of brewing powerful potions!");
     Course B("Ancient Magic","Learn more about the lives of ancient witches and wizards!");
     Course C("Defence Against Dark Arts","Learn to protect yourself against evil!");
     Course D("Herbology","Learn about magical plants and their uses!");
-    //Creating vectors of courses for each faculty object
+    //Creating vectors of courses for each faculty object. 
+    //A faculty member can teach more than one course.
+    //All course vectors throughout the code contain pointers to vectors to 'pass by reference' instead of copies.
     vector <Course*> teach1;
     teach1.push_back(&A);
 
@@ -22,12 +28,12 @@ int main() {
     teach3.push_back(&C);
     teach3.push_back(&D);
 
-    //creating faculty objects
+    //creating faculty objects and assigning their courses
     vector <Faculty> faculty;
     faculty.push_back(Faculty ("Horace Slughorn", teach1));
     faculty.push_back(Faculty ("Eleazar Fig", teach2));
     faculty.push_back(Faculty ("Severus Snape",teach3));
-    //creating a vector of all courses offered
+    //creating a vector of pointers all courses offered
     vector <Course*> courses;
     courses.push_back(&A);
     courses.push_back(&B);
@@ -42,7 +48,7 @@ int main() {
     students.push_back(Student("Cedric Diggory", courses));
     students.push_back(Student("Luna Lovegood", courses));
     students.push_back(Student("Dean Thomas", courses));
-    //
+    //creating a vector of student objects - to be passed to courses
     vector<Student*> studentptrs;
     for(int i=0;i<students.size();i++){
         studentptrs.push_back(&students[i]);
@@ -52,7 +58,10 @@ int main() {
     courses[1]->addStudents(studentptrs);
     courses[2]->addStudents(studentptrs);
     courses[3]->addStudents(studentptrs);
-
+    //the course management system interface starts here.
+    //the use has the option to view as either a faculty or a student member
+    //Faculty can edit and view information
+    //Students can only view information 
     char view_selection='S';
     cout<<"Welcome to Hogwarts School of Witchcraft and Wizardry!"<<endl;
     do{
@@ -75,7 +84,7 @@ int main() {
             do{
             cout<<"Please enter the index for the course whose details are to be accessed"<<endl;
             students[student_select].printCourses();
-            print(-1,"Exit Student View");
+            print(-1,"Exit Student View");//the user should enter -1 to exit the student view
             cin>>course_select;
             if(course_select==-1){break;}
             //print the different functions available for students
@@ -87,31 +96,34 @@ int main() {
             print(3,"View Course Material");
             print(4,"View Grade");
             cin>>option_select;
-            if(option_select==0){
+            if(option_select==0){//print course description
                 students[student_select].getCourse(course_select).printCourseDescription();
             }
-            else if(option_select==1){
+            else if(option_select==1){//print course details - name, faculty, description
                 students[student_select].getCourse(course_select).printCourseDetails();
             }
-            else if(option_select==2){
+            else if(option_select==2){//print the syllabus. only if uploaded earlier in faculty view.
                 students[student_select].getCourse(course_select).printSyllabus();
             }
-            else if(option_select==3){
+            else if(option_select==3){//print course material. only if uploaded earlier in faculty view.
                 students[student_select].getCourse(course_select).printCourseMaterials();
             }
-            else if(option_select==4){
+            else if(option_select==4){//show the grade for the class
                 cout<<students[student_select].getGrade(course_select)<<endl;
             }
             else {cout<<"Incorrect option was selected"<<endl;}
             }while(course_select!=-1);
         }
         else if(view_selection=='f'||view_selection=='F'){
+            //faculty view
             int faculty_select;
+            //selecting the appropriate course - faculty can teach more than one
             cout<<"Please select the index for your name"<<endl;
             for(int i=0;i<faculty.size();i++){
                 print(i,faculty[i].getName());
             }
             cin>>faculty_select;
+            //selecting the correct function for the course
             int course_select;
                 cout<<"Please select the index for the course whose information is to be viewed/edited"<<endl;
                 faculty[faculty_select].printCourses();
@@ -132,43 +144,42 @@ int main() {
                 print(-1,"Exit Faculty View");
                 if(option_select==-1){break;}
                 cin>>option_select;
-                if(option_select==0){
+                if(option_select==0){//prints course description
                     faculty[faculty_select].getCourse(course_select).printCourseDescription();
                 }
-                else if(option_select==1){
+                else if(option_select==1){//prints course details
                     faculty[faculty_select].getCourse(course_select).printCourseDetails();
                 }
-                else if(option_select==2){
+                else if(option_select==2){//prints syllabus - if uplaoded
                     faculty[faculty_select].getCourse(course_select).printSyllabus();
                 }
-                else if(option_select==3){
+                else if(option_select==3){//prints course material - if uploaded
                     faculty[faculty_select].getCourse(course_select).printCourseMaterials();
                 }
-                else if(option_select==4){
+                else if(option_select==4){//prints the grades for everyone in class
                     faculty[faculty_select].getCourse(course_select).printClassGrades();
                 }
-                else if(option_select==5){
+                else if(option_select==5){//enables change in course description
                     faculty[faculty_select].setCourseDescription(course_select);
                 }
-                else if(option_select==6){
+                else if(option_select==6){//enables uploading a syllabus file
                     faculty[faculty_select].setSyllabus(course_select);
                 }
-                else if(option_select==7){
+                else if(option_select==7){//enables uploading a course materials file
                     faculty[faculty_select].setCourseMaterialFile(course_select);
                 }
-                else if(option_select==8){
+                else if(option_select==8){//enables setting grades for everyone in class
                     faculty[faculty_select].setGrades(course_select);
                 }
-                else if(option_select==9){
+                else if(option_select==9){//prints the list for everyone in class
                     faculty[faculty_select].getCourse(course_select).printClassList();
                 }
                 else {cout<<"You have made the wrong selection"<<endl;}
             }while(option_select!=-1);
         }
-        else if(view_selection!='e'||view_selection!='E'){break;}
+        else if(view_selection!='e'||view_selection!='E'){break;}//if e/E is selected when asked about student/faculty view, the program terminates.
         else{cout<<"You have selected an incorrect option"<<endl;}
 
     }while(view_selection!='e'||view_selection!='E');
-
     return 0;
 }
