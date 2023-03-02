@@ -50,7 +50,7 @@ int main() {
     students.push_back(Student("Dean Thomas", courses));
     //creating a vector of student objects - to be passed to courses
     vector<Student*> studentptrs;
-    for(int i=0;i<students.size();i++){
+    for(int i=0;i<students.size();++i){
         studentptrs.push_back(&students[i]);
     }
     //adding students to courses
@@ -75,7 +75,7 @@ int main() {
             //Print List of Students.
             int student_select;
             cout<<"Please enter the index for your name!"<<endl;
-            for(int i=0;i<students.size();i++){
+            for(int i=0;i<students.size();++i){
                 print(i,students[i].getName());
             }
             cin>>student_select;
@@ -119,7 +119,7 @@ int main() {
             int faculty_select;
             //selecting the appropriate course - faculty can teach more than one
             cout<<"Please select the index for your name"<<endl;
-            for(int i=0;i<faculty.size();i++){
+            for(int i=0;i<faculty.size();++i){
                 print(i,faculty[i].getName());
             }
             cin>>faculty_select;

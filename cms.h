@@ -50,7 +50,7 @@ class Course{
             this->courseDescription=courseDescription;
             syllabusFile="syllabus"+courseName+(char)courseNumber;
             courseMaterialFile="coursematerial"+courseName+(char)courseNumber;
-            numOfCourses++;
+            ++numOfCourses;
             courseNumber=numOfCourses;//courseNumber depends on static variable so that there is no overlap
         }
         void addStudents(vector<Student*> students){//adds student pointer to the student vector
@@ -114,7 +114,7 @@ class Course{
                         }
                     }
                 cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
-                sum+=students[i]->getGrade(j);
+                sum+=students[i]->getGrade(courseNumber-1);
             }
             cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
         }
