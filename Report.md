@@ -230,7 +230,7 @@ Example: Line 15 of the header file:
 Student(string name, vector<Course*>& courses);
 ```
 
-- Prefix Icrement
+- Prefix Imcrement
 Variables have been prefix incremented (++i, instead of i++) as postfix increment leads to the creation of a temporary variable that slows down the program. This may be a minor optimization but since incrementing taking place so frequently through the code, the effects add up.
 Example: Line 53 of the main file
 ```c++
