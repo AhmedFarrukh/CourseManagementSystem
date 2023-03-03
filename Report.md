@@ -4,7 +4,7 @@
 
 The aim of my code is to create a simple version for a course management system. 
 
-A course management system is a software tool used to host course information such as syllabi and provide a medium of interaction between teachers and learners<sup>[1]</sup>. In addition, an effective cours management system is supposed to host all the neccessary details of a course, allowing a single platform to be acccessed for all resources regarding a course<sup>[2]</sup>. While a course management system may provide remote learners the only platform for instruction, even in-person teaching enviornmnets greatly benefit from the presence of an online course management system<sup>[3]</sup>.
+A course management system is a software tool used to host course information such as syllabi and provide a medium of interaction between teachers and learners<sup>[1]</sup>. In addition, an effective course management system is supposed to host all the neccessary details of a course, allowing a single platform to be acccessed for all resources regarding a course; it is different from a learning management system, which is generally made specifically for remote learning<sup>[2]</sup>. Course management systems are helpful for both remote and in-person teaching enviornments as both greatly benefit from the presence of online access to course resources<sup>[3]</sup>.
 
 The program should store data about courses, allow students to view information about the courses they are enrolled in and allow faculty to view and edit information about the courses that they are teaching. In addition, the program should also mantain data about which courses are offered, who is teaching them and who is enrolled in these courses. A course management system, the likes of which are used in universities, mantains large sets of data that needs to be stored orderly<sup>[4]</sup>. This challenge needs to be tackled using effective ways of storing and sharing information. 
 
@@ -143,7 +143,7 @@ Here are some of the key functions inside declared classes.
 - printSyllabus in Course
 ```c++
 void printSyllabus(){//prints the contents of the syllabus file. if wrong name is input, or no name input yet, throws an exception
-     try{
+            try{
             ifstream inFile;
             inFile.open(syllabusFile,ios::in);
             if(inFile.fail()){
@@ -164,21 +164,22 @@ The printSyllabus function, similar to the printCourseMaterial function prints t
 
 - print classGrades in Course
 ```c++
-void printClassGrades(){
-     double sum=0;
-     int j;
-     cout<<"The grades are as follows: "<<endl;
-     for(int i=0;i<students.size();i++){//prints the grade for each student
-           for(j=0;j<students[i]->getNumOfCoursesEnrolled();j++){//find the relevant index of course in the courses vector held by the student
-           if(students[i]->getCourse(j).getCourseName()==courseName){
-           break;
-           }
-           }
-      cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
-      sum+=students[i]->getGrade(j);
-      }
-      cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
-      }
+        void printClassGrades(){
+            double sum=0;
+            int j;
+            cout<<"The grades are as follows: "<<endl;
+            for(int i=0;i<students.size();i++){//prints the grade for each student
+                    for(j=0;j<students[i]->getNumOfCoursesEnrolled();j++){//find the relevant index of course in the courses vector held by the student
+                        if(students[i]->getCourse(j).getCourseName()==courseName){
+                        break;
+                        }
+                    }
+                cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
+                sum+=students[i]->getGrade(j);
+            }
+            cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
+        }
+        string getCourseName(){return courseName;}
 ```
 This function prints the grades for each student in a class. Using a for loop, it cycles through every student in the students vector held by the course. Then it compares each course taken by the student to the course in question, to find the index of this course in the students list of courses. The function then gets the grade at the index found through the last step. Additionally, it also calculates the average class grade.
 
@@ -230,50 +231,8 @@ Example: Line 15 of the header file:
 Student(string name, vector<Course*>& courses);
 ```
 
-- Prefix Imcrement
-Variables have been prefix incremented (++i, instead of i++) as postfix increment leads to the creation of a temporary variable that slows down the program. This may be a minor optimization but since incrementing taking place so frequently through the code, the effects add up.
-Example: Line 53 of the main file
-```c++
-for(int i=0;i<students.size();++i)
-```
 
-#### OOP Concepts
-- Inheritance: Both Faculty and Student classes are inherited from the Member class. The Member class has two important variables (name and course vector) that are common to both classes. It also makes intuitive sense since both faculty and students are member of the university system.
-```c++
-class Student: private Member{
-```
-- Friendhsip: The Faculty class is a friend of the Course class so that it may edit the variables of the Course class. 
-```c++
-class Course{
-friend class Faculty
-```
-- Static Variable: The number of courses has been declared as a static variable, since it should be outside a specific object and needs to count each instance when an object is created.
-```c++
- static int numOfCourses;
-```
-- 'this' Keyword: The this keyword has extensively been used in constructors to refer to the object whose constructor has been called.
-```c++
-this->courseName=courseName;
-```
-- 'throw-exception': Exceptions have been used when opening files, incase the file name is incorrect or yet to be updated.
-```c++
-try{
-    ifstream inFile;
-    inFile.open(syllabusFile,ios::in);
-    if(inFile.fail()){
-       throw(syllabusFile);
-       }
-       char character;
-       while(!inFile.eof()){
-        character=inFile.get();
-        if(character==inFile.eof()){break;}
-        cout<<character;
-        }
-       cout<<endl;
-       inFile.close();
-       }catch(string syllabusFile){cout<<"There was an error opening the syllabus file.\n Note that the syllabus is only available once the instructor has uploaded it."<<endl;}
-        }
-```
+
 #### References
 <sup>[1]</sup> https://cft.vanderbilt.edu/guides-sub-pages/course-management-systems/#:~:text=A%20course%20management%20system%20
 
