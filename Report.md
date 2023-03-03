@@ -206,7 +206,7 @@ In general, the function calls look like this:
 ```c++
 faculty[faculty_select].getCourse(course_select).printCourseDetails();
 ```
-The specific faculty object is called from the faculty vector, the course selected is then retrieved using the getCourse function and then the printCourseDetails function for the course retrieved is called. To view different information, the function called by the retrieved course is changed. In general, functions to view course information belong to the Course class, whereas functions to edit information in the Course class belong to the Faculty object. (Faculty is a friend of the Course class). This adds an extra layer to protection and makes sure that student objects can not change any of the course details, since they can only be changed through the faculty class and a student object has no faculty member.
+The specific faculty object is called from the faculty vector, the course selected is then retrieved using the getCourse function and then the printCourseDetails function for the course retrieved is called. To view different information, the function called by the retrieved course is changed. In general, functions to view course information belong to the Course class, whereas functions to edit information in the Course class belong to the Faculty object. (Faculty is a friend of the Course class). This adds an extra layer of protection and makes sure that student objects can not change any of the course details, since they can only be changed through the faculty class and a student object has no faculty member.
 
 Once, information has ben viewed, the user is once again prompted to select what infomation they would like to see, or to exit the view.
 
@@ -219,28 +219,36 @@ Here is what the code output looks like:
 
 ## Optimization Techniques
 - Inline Functions
-I have used inline functions to print efficiently as they are replaced by the compiler where referenced at runtime. Since menus are printed again and again in the code, with very simialr format each time, inline functions makes the code readable while still allowing efficiency. 
+
+I have used inline functions to print efficiently as they are replaced by the compiler where referenced at runtime. Since menus are printed again and again in the code, with very similar format each time, inline functions makes the code readable while still allowing efficiency. 
+
 Example: Line 93 of the main file:
 ```c++
  print(0,"View Course Description");
 ```
 
 - Vectors (STL)
+
 Vectors have been used in place of large static arrays. By providing dynamic memory allocation, they make sure that the memory occupied by the program is close to its need and not much over neccessary as would be the case for static arrays.
+
 Example: Line 21 of of the main file:
 ```c++
 vector <Course*> teach1;
 ```
 
 -  Passing by reference
+
 Wherever possible, values were passed to functions by reference. When passing by value, a copy of the variable is generated which takes time and memory, in constrast, passing by reference does not generate an additional copy.
+
 Example: Line 15 of the header file:
 ```c++
 Student(string name, vector<Course*>& courses);
 ```
 
 - Prefix Increment
+
 Variables have been prefix incremented (++i, instead of i++) as postfix incrementation leads to the creation of a temporary variable that slows down the program. This may be a minor optimization but since incrementing taking place so frequently through the code, the effects add up.
+
 Example: Line 53 of the main file
 ```c++
 for(int i=0;i<students.size();++i)
@@ -284,7 +292,7 @@ if(inFile.fail()){
     }
 ```
 
-#### References
+## References
 <sup>[1]</sup> https://cft.vanderbilt.edu/guides-sub-pages/course-management-systems/#:~:text=A%20course%20management%20system%20
 
 <sup>[2]</sup> https://elearningindustry.com/cms-vs-lms-key-differences-course-management-systems-learning-management-systems
