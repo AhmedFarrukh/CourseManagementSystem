@@ -17,7 +17,7 @@ Students should be able to see a list of the courses they are enrolled in and fo
 - View Course Materials
 - View Grade
 
-Faculty should be able to see a list of course they are teaching and for each course, be able to:
+Faculty should be able to see a list of courses they are teaching and for each course, be able to:
 - View Course Description
 - View Course Details
 - View Course Materials
@@ -51,12 +51,84 @@ Student stores the following information:
 The objects are, therefore, all interconnected to each other. By creating these three classes, the program is able to store data about all three entities (students, teacher and courses) and how they all relate to each other. 
 
 ### Solution
-A class called Member was created that represents a member of the university. Each object of the Member class holds a name variable a vector of points to the course it is associated to. Both Student and Faculty class are inherited members of the 
+A class called Member was created that represents a member of the university. Each object of the Member class holds a name variable and a vector of pointers to the courses it is associated to. Both Student and Faculty class are inherited from the Member class.
 The following class diagrams show the different classes that were implemented, their data members and member functions.
 ![Class Diagram](images/ClassDiagram.drawio.png)
 
-As can been seen in the class diagram, each class maintains access to objects of another class. Course objects have a Faculty data member and a vector of pointers to students enrolled in the course. Both Faculty and Student classes hold vectors to courses they are associated with. The interdependence of classes creates problems during declarations. To solve this challengle, Student and Faculty class were declared in the header file first, but their functions were not defined, only declared. Next, Course class was declared. Finally, the functions of Faculty and Student classes were also declared. By following this pattern, each class is declared before its objects are manipulated by the function of another class, and the code runs without error.
+As can been seen in the class diagram, each class maintains access to objects of another class. Course objects have a Faculty data member and a vector of pointers to Student objects enrolled in the Course. Both Faculty and Student classes hold vectors of pointers to Course objects they are associated with. The interdependence of classes creates problems during class declarations. To solve this challenge, Student and Faculty class were declared in the Header file first, but their functions were not defined, only declared. Next, Course class was declared. Finally, the functions of Faculty and Student classes were also declared. By following this pattern, each class is declared before its objects are manipulated by the function of another class, and the code runs without error.
 
+#### Function inside Classes
+Here are some of the key functions inside declared classes.
+- printSyllabus in Course
+```c++
+void printSyllabus(){//prints the contents of the syllabus file. if wrong name is input, or no name input yet, throws an exception
+    try{
+    ifstream inFile;
+    inFile.open(syllabusFile,ios::in);
+    if(inFile.fail()){
+        throw(syllabusFile);
+    }
+    char character;
+    while(!inFile.eof()){
+        character=inFile.get();
+        if(character==inFile.eof()){break;}
+        cout<<character;
+    }
+    cout<<endl;
+    inFile.close();
+    }catch(string syllabusFile){cout<<"There was an error opening the syllabus file.\n Note that the syllabus is only available once the instructor has uploaded it."<<endl;}
+    }
+```
+The printSyllabus function, is similar to the printCourseMaterial function, and prints the contents of the syllabus file, given the name of the file has been updated by a Faculty object. If the file name has not been updated or is incorrect, an exception is thrown.
+
+- print classGrades in Course
+```c++
+void printClassGrades(){
+    double sum=0;
+    int j;
+    cout<<"The grades are as follows: "<<endl;
+    for(int i=0;i<students.size();i++){//prints the grade for each student
+            for(j=0;j<students[i]->getNumOfCoursesEnrolled();j++){//find the relevant index of course in the courses vector held by the student
+                if(students[i]->getCourse(j).getCourseName()==courseName){
+                break;
+                }
+            }
+        cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
+        sum+=students[i]->getGrade(j);
+    }
+    cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
+}
+string getCourseName(){return courseName;}
+```
+This function prints the grades for each student in a class. Using a for-loop, it cycles through every student in the students vector held by the course. Then it compares each course taken by the student to the course in question, to find the index of this course in the student's list of courses. The function then gets the grade of the student using the index found through the last step. Next, it prints the names of the students with their grades next to their names. In addition, it also calculates and prints the average grade for the class.
+
+- setCourseDescription in Faculty
+```c++
+void Faculty:: setCourseDescription(int i){//sets new course description for specified course
+    cout<<"Please enter the new course description"<<endl;
+    string newdescription="";
+    cin.ignore();
+    getline(cin,newdescription);//getline used as only new line is to be used as delimiter
+    courses[i]->courseDescription=newdescription;
+}
+```
+This function asks the user for a new course description and then puts the input into the course description variable for the course referenced by the input index i (i would already be provided by the user through the main function). Since Faculty is a friend of Course, a setter is not needed and the variable is updated directly.
+
+- setGrades in Faculty
+```c++
+void Faculty:: setGrades(int i){//allows setting of grades for every student in the class.
+    double g;
+    cout<<"Please enter the grade for each student"<<endl;
+    for(int j=0;j<courses[i]->students.size();j++){
+        cout<<setw(20)<<left<<courses[i]->students[j]->getName();
+        cin>>g;
+        courses[i]->students[j]->setGrade(*courses[i],g);
+    }
+}
+```
+This function first prints the name of every student using the students vectors in the course referenced by the input index i in a faculty object. Next it allows you to input the grade for each student next to their name, which is then taken as an input to the setGrade function held by each student object.
+
+ 
 Following is the flow in my main function:
 ![Main Function Flow](images/Main_flow.drawio.png)
 
@@ -138,76 +210,6 @@ The specific faculty object is called from the faculty vector, the course select
 
 Once, information has ben viewed, the user is once again prompted to select what infomation they would like to see, or to exit the view.
 
-#### Function inside Classes
-Here are some of the key functions inside declared classes.
-- printSyllabus in Course
-```c++
-void printSyllabus(){//prints the contents of the syllabus file. if wrong name is input, or no name input yet, throws an exception
-            try{
-            ifstream inFile;
-            inFile.open(syllabusFile,ios::in);
-            if(inFile.fail()){
-                throw(syllabusFile);
-            }
-            char character;
-            while(!inFile.eof()){
-                character=inFile.get();
-                if(character==inFile.eof()){break;}
-                cout<<character;
-            }
-            cout<<endl;
-            inFile.close();
-            }catch(string syllabusFile){cout<<"There was an error opening the syllabus file.\n Note that the syllabus is only available once the instructor has         uploaded it."<<endl;}
-        }
-```
-The printSyllabus function, similar to the printCourseMaterial function prints the file given the name of the file has been updated by a faculty member. If the file name has not been updated or is incorrect, an exception is thrown.
-
-- print classGrades in Course
-```c++
-        void printClassGrades(){
-            double sum=0;
-            int j;
-            cout<<"The grades are as follows: "<<endl;
-            for(int i=0;i<students.size();i++){//prints the grade for each student
-                    for(j=0;j<students[i]->getNumOfCoursesEnrolled();j++){//find the relevant index of course in the courses vector held by the student
-                        if(students[i]->getCourse(j).getCourseName()==courseName){
-                        break;
-                        }
-                    }
-                cout<<setw(40)<<left<<students[i]->getName()<<setw(5)<<left<<students[i]->getGrade(j)<<endl;//make pretty
-                sum+=students[i]->getGrade(j);
-            }
-            cout<<setw(40)<<left<<"The average grade is "<<sum/(double)students.size()<<endl;
-        }
-        string getCourseName(){return courseName;}
-```
-This function prints the grades for each student in a class. Using a for loop, it cycles through every student in the students vector held by the course. Then it compares each course taken by the student to the course in question, to find the index of this course in the students list of courses. The function then gets the grade at the index found through the last step. Additionally, it also calculates the average class grade.
-
-- setCourseDescription in Faculty
-```c++
-void Faculty:: setCourseDescription(int i){//sets new course description for specified course
-    cout<<"Please enter the new course description"<<endl;
-    string newdescription="";
-    cin.ignore();
-    getline(cin,newdescription);//getline used as only new line is to be used as delimiter
-    courses[i]->courseDescription=newdescription;
-}
-```
-This function prints a statement, asking for a new course description and then puts the input into the course description variable for the course referenced by the input index i. Since Faculty is a friend of Course, a setter is not needed and the variable is updated directly.
-
-- setGrades in Faculty
-```c++
-void Faculty:: setGrades(int i){//allows setting of grades for every student in the class.
-    double g;
-    cout<<"Please enter the grade for each student"<<endl;
-    for(int j=0;j<courses[i]->students.size();j++){
-        cout<<setw(20)<<left<<courses[i]->students[j]->getName();
-        cin>>g;
-        courses[i]->students[j]->setGrade(*courses[i],g);
-    }
-}
-```
-This function first prints the name of every student using the students vectors in the course referenced by the input index i in a faculty object. Next it allows you to input the grade for each student next to their name, which is then taken as an input to the getName function held by each student object.
 
 #### Optimization Techniques
 - Inline Functions
