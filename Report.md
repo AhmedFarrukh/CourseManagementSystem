@@ -1,15 +1,15 @@
-# Report
-## Course Management System
-### Introduction
+# Report: Course Managment System
+## Introduction
 
 The aim of my code is to create a simple version for a course management system. 
 
 A course management system is a software tool used to host course information such as syllabi and provide a medium of interaction between teachers and learners<sup>[1]</sup>. In addition, an effective course management system is supposed to host all the neccessary details of a course, allowing a single platform to be acccessed for all resources regarding a course; it is different from a learning management system, which is generally made specifically for remote learning<sup>[2]</sup>. Course management systems are helpful for both remote and in-person teaching enviornments as both greatly benefit from the presence of online access to course resources<sup>[3]</sup>.
 
-The program should store data about courses, allow students to view information about the courses they are enrolled in and allow faculty to view and edit information about the courses that they are teaching. In addition, the program should also mantain data about which courses are offered, who is teaching them and who is enrolled in these courses. A course management system, the likes of which are used in universities, mantains large sets of data that needs to be stored orderly<sup>[4]</sup>. This challenge needs to be tackled using effective ways of storing and sharing information. 
+The program should store data about courses, allow students to view information about the courses they are enrolled in and allow faculty to view and edit information about the courses that they are teaching. In addition, the program should also mantain data about which courses are offered, who is teaching them and who is enrolled in these courses. A course management system, the likes of which are used in universities, mantains large sets of data that need to be stored orderly<sup>[4]</sup>. This challenge needs to be tackled using effective ways of storing and sharing information. 
 
-### Approach
+## Approach
 In terms of the functionality of the system, I implemented the following functions.
+
 Students should be able to see a list of the courses they are enrolled in and for each course, be able to:
 - View Course Descripton
 - View Course Details (Course Name, Faculty Name, Course Description)
@@ -50,15 +50,15 @@ Student stores the following information:
 
 The objects are, therefore, all interconnected to each other. By creating these three classes, the program is able to store data about all three entities (students, teacher and courses) and how they all relate to each other. 
 
-### Solution
+## Solution
 A class called Member was created that represents a member of the university. Each object of the Member class holds a name variable and a vector of pointers to the courses it is associated to. Both Student and Faculty class are inherited from the Member class.
 The following class diagrams show the different classes that were implemented, their data members and member functions.
 ![Class Diagram](images/ClassDiagram.drawio.png)
 
-As can been seen in the class diagram, each class maintains access to objects of another class. Course objects have a Faculty data member and a vector of pointers to Student objects enrolled in the Course. Both Faculty and Student classes hold vectors of pointers to Course objects they are associated with. The interdependence of classes creates problems during class declarations. To solve this challenge, Student and Faculty class were declared in the Header file first, but their functions were not defined, only declared. Next, Course class was declared. Finally, the functions of Faculty and Student classes were also declared. By following this pattern, each class is declared before its objects are manipulated by the function of another class, and the code runs without error.
+As can been seen in the class diagram, each class maintains access to objects of another class. Course objects have a Faculty data member and a vector of pointers to Student objects enrolled in the Course. Both Faculty and Student classes hold vectors of pointers to Course objects they are associated with. The interdependence of classes creates problems during class declarations. To solve this challenge, Student and Faculty classes were declared in the Header file first, but their functions were not defined, only declared. Next, Course class was declared. Finally, the functions of Faculty and Student classes were also declared. By following this pattern, each class is declared before its objects are manipulated by the function of another class, and the code runs without error.
 
-#### Function inside Classes
-Here are some of the key functions inside declared classes.
+### Key Functions inside Classes
+Here are some of the key functions inside the declared classes.
 - printSyllabus in Course
 ```c++
 void printSyllabus(){//prints the contents of the syllabus file. if wrong name is input, or no name input yet, throws an exception
@@ -125,9 +125,9 @@ for(int j=0;j<courses[i]->students.size();j++){
 }
 }
 ```
-This function first prints the name of every student using the students vectors in the course referenced by the input index i in a faculty object. Next it allows you to input the grade for each student next to their name, which is then taken as an input to the setGrade function held by each student object.
+This function, first, prints the name of every student using the students vector in the course referenced by the input index i (index i is already known through the user's selection of the course in the main function). Next, it allows you to input the grade for each student next to their name, which is then taken as an input to the setGrade function held by each Student object.
 
-#### Main Function
+### Main Function
 Following is the flow in my main function:
 ![Main Function Flow](images/Main_flow.drawio.png)
 
@@ -146,7 +146,7 @@ Next, Faculty Members are created inside a vector of Faculty objects and assigne
 vector <Faculty> faculty;
 faculty.push_back(Faculty ("Horace Slughorn", teach1));
 ```
-Next, a similar process as for Faculty is used to generate vectors of courses taken by different groups of students. For simplicity, however, this piece of code assumes that all students take the same courses, and therefore, only one vector of course objects is required. However, the rest of the code structure can easily accomodate the possbility of different students having different course combinations.
+Next, a process similar to the one used for the faculty is used to generate vectors of courses taken by different groups of students. For simplicity, however, this piece of code assumes that all students take the same courses, and therefore, only one vector of course objects is required. However, the rest of the code structure can easily accomodate the possbility of different students having different course combinations.
 ```c++
 vector <Course*> courses;
 courses.push_back(&A);
@@ -165,7 +165,7 @@ courses[0]->addStudents(studentptrs);
 ```
 With this, all Course, Student and Faculty objects have been initialized. It may have been noticed that each object maintains a vector of pointers to other objects instead of just of a vector of objects. This is because when a vector is created, objects are copied into it by value, instead of by reference. By making a vector, therefore, access is lost to the original variable and only a copy remains. Since my code aims to manipulate the original variable, pointers are used so that the objects being manipulated remain constant throughout the code and no copies are generated.
 #### Print Menu
-The print menu gives the user the option to see the faculty view, the student view or exit the program. The menu exists inside a loop so that unless the exit option is chosen, it will be reprinted everytime the user exits a specific view.
+The print menu gives the user the option to see the faculty view,  the student view or exit the program. The menu exists inside a loop so that unless the exit option is chosen, it will be reprinted everytime the user exits a specific view.
 ```c++
 cout<<"You may view the Course Management System as a Student or as a Faculty Member"<<endl;
 cout<<"Press 'S' for Student View"<<endl;
@@ -217,7 +217,7 @@ Here is what the code output looks like:
 ![Ouput 3](images/output3.png)
 
 
-#### Optimization Techniques
+## Optimization Techniques
 - Inline Functions
 I have used inline functions to print efficiently as they are replaced by the compiler where referenced at runtime. Since menus are printed again and again in the code, with very simialr format each time, inline functions makes the code readable while still allowing efficiency. 
 Example: Line 93 of the main file:
@@ -239,14 +239,14 @@ Example: Line 15 of the header file:
 Student(string name, vector<Course*>& courses);
 ```
 
-- Prefix Imcrement
+- Prefix Increment
 Variables have been prefix incremented (++i, instead of i++) as postfix incrementation leads to the creation of a temporary variable that slows down the program. This may be a minor optimization but since incrementing taking place so frequently through the code, the effects add up.
 Example: Line 53 of the main file
 ```c++
 for(int i=0;i<students.size();++i)
 ```
 
-#### OOP Concepts
+## OOP Concepts
 - Inheritance: Both Faculty and Student classes are inherited from the Member class. The Member class has two important variables (name and course vector) that are common to both classes. It also makes intuitive sense since both faculty and students are members of the university system.
 ```c++
 class Student: private Member{
