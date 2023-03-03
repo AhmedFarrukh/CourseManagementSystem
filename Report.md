@@ -128,11 +128,11 @@ void Faculty:: setGrades(int i){//allows setting of grades for every student in 
 ```
 This function first prints the name of every student using the students vectors in the course referenced by the input index i in a faculty object. Next it allows you to input the grade for each student next to their name, which is then taken as an input to the setGrade function held by each student object.
 
- 
+#### Main Function
 Following is the flow in my main function:
 ![Main Function Flow](images/Main_flow.drawio.png)
 
-##### Initialization of Objects
+#### Initialization of Objects
 Course objects are created first, and initially have their name and description assigned to them.
 ```c++
 Course A("Portions","Learn the art of brewing powerful potions!");
@@ -147,7 +147,7 @@ Next, Faculty Members are created inside a vector of Faculty objects and assigne
 vector <Faculty> faculty;
 faculty.push_back(Faculty ("Horace Slughorn", teach1));
 ```
-Next, a similar process as for Faculty is used to generate vectors of courses taken by different groups of students. For simplicity, however, this piece of code assumes that all students take the same course, and therefore, only vector of course objects is required. However, the rest of the code structure can easily accomodate the possbility of different students having different course combinations.
+Next, a similar process as for Faculty is used to generate vectors of courses taken by different groups of students. For simplicity, however, this piece of code assumes that all students take the same courses, and therefore, only one vector of course objects is required. However, the rest of the code structure can easily accomodate the possbility of different students having different course combinations.
 ```c++
 vector <Course*> courses;
 courses.push_back(&A);
@@ -157,7 +157,7 @@ Next, Student objects are created inside a student vector, with each being assig
 vector <Student> students;
 students.push_back(Student("Harry Potter", courses));
 ```
-Finally, the vector of student obejcts is used to generate vector of pointers to the same student objects. This vector of pointers is then assigned to each ofthe courses taken by these students.
+Finally, the vector of student objects is used to generate a vector of pointers to the same student objects. This vector of pointers is then assigned to each of the courses taken by these students.
 ```c++
 for(int i=0;i<students.size();i++){
 studentptrs.push_back(&students[i]);
@@ -184,7 +184,8 @@ cin>>course_select;
 ```
 Next, the user is asked to select the appropriate index for the information they would like to see. Categories include: View Course Description, View Course Details, View the Syllabus, View Course Material, View Grade.
 
-Once selected, the appropriate function is called using an if-else block. In general, the function calls look like this:
+Once selected, the appropriate function is called using an if-else block. 
+In general, the function calls look like this:
 ```c++
 students[student_select].getCourse(course_select).printCourseDetails();
 ```
@@ -193,7 +194,6 @@ The specific student object is called from the students vector, the course selec
 Once, information has ben viewed, the user is once again prompted to select the course whose infomation they would like to see, or to exit the view.
 
 #### Faculty View
-
 Once the faculty view is selected, the user is prompted to select a course.
 ```c++
 cout<<"Please select the index for the course whose information is to be viewed/edited"<<endl;
@@ -202,13 +202,19 @@ cin>>course_select;
 ```
 Next, the user is asked to select the appropriate index for the information they would like to see. Categories include: View Course Description, View Course Details, View the Syllabus, View Course Material, View Class Grades, Edit Course Description, Upload Syllabus, Upload Course Materials, Set Class Grades, Print Class List.
 
-Once selected, the appropriate function is called using an if-else block. In general, the function calls look like this:
+Once selected, the appropriate function is called using an if-else block. 
+In general, the function calls look like this:
 ```c++
 faculty[faculty_select].getCourse(course_select).printCourseDetails();
 ```
 The specific faculty object is called from the faculty vector, the course selected is then retrieved using the getCourse function and then the printCourseDetails function for the course retrieved is called. To view different information, the function called by the retrieved course is changed. In general, functions to view course information belong to the Course class, whereas functions to edit information in the Course class belong to the Faculty object. (Faculty is a friend of the Course class). This adds an extra layer to protection and makes sure that student objects can not change any of the course details, since they can only be changed through the faculty class and a student object has no faculty member.
 
 Once, information has ben viewed, the user is once again prompted to select what infomation they would like to see, or to exit the view.
+
+Here is what the code output looks like:
+![Ouput 1](output1.png)
+![Ouput 2](output2.png)
+![Ouput 3](output3.png)
 
 
 #### Optimization Techniques
@@ -233,7 +239,50 @@ Example: Line 15 of the header file:
 Student(string name, vector<Course*>& courses);
 ```
 
+- Prefix Imcrement
+Variables have been prefix incremented (++i, instead of i++) as postfix incrementation leads to the creation of a temporary variable that slows down the program. This may be a minor optimization but since incrementing taking place so frequently through the code, the effects add up.
+Example: Line 53 of the main file
+```c++
+for(int i=0;i<students.size();++i)
+```
 
+#### OOP Concepts
+- Inheritance: Both Faculty and Student classes are inherited from the Member class. The Member class has two important variables (name and course vector) that are common to both classes. It also makes intuitive sense since both faculty and students are members of the university system.
+```c++
+class Student: private Member{
+```
+- Friendhsip: The Faculty class is a friend of the Course class so that it may edit the variables of the Course class. 
+```c++
+class Course{
+friend class Faculty
+```
+- Static Variable: The number of courses has been declared as a static variable, since it should be outside a specific object and needs to count each instance when an object is created.
+```c++
+ static int numOfCourses;
+```
+- 'this' Keyword: The this keyword has extensively been used in constructors to refer to the object whose constructor has been called.
+```c++
+this->courseName=courseName;
+```
+- 'throw-exception': Exceptions have been used when opening files, incase the file name is incorrect or yet to be updated.
+```c++
+try{
+    ifstream inFile;
+    inFile.open(syllabusFile,ios::in);
+    if(inFile.fail()){
+       throw(syllabusFile);
+       }
+       char character;
+       while(!inFile.eof()){
+        character=inFile.get();
+        if(character==inFile.eof()){break;}
+        cout<<character;
+        }
+       cout<<endl;
+       inFile.close();
+       }catch(string syllabusFile){cout<<"There was an error opening the syllabus file.\n Note that the syllabus is only available once the instructor has uploaded it."<<endl;}
+        }
+```
 
 #### References
 <sup>[1]</sup> https://cft.vanderbilt.edu/guides-sub-pages/course-management-systems/#:~:text=A%20course%20management%20system%20
