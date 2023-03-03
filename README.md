@@ -26,7 +26,7 @@ Check the list below as they are completed using the [x] symbol.
 - [x] Understand the evaluation scheme.
 - [x] Submit code files into this repo under the __code/__ directory.
 - [x] Ensure code files can be executed in a Github codespace environment.
-- [ ] Provide a screenshot of your code's output.
+- [x] Provide a screenshot of your code's output.
 - [x] Submit your report in `Report.md`.
 - [x] Complete the self-assessment according to the defined evaluation scheme.
   - [x] Complete the self-assessment table (b) below.
@@ -40,19 +40,19 @@ The table below lists the elements in which you project will be assessessed. Ple
 |              | Points | Student's Evaluation     | Instructor's Evaluation |
 | ------------ | ------ | ------------------------ | ----------------------- |
 | __Code:__    |        |                          |                         |
-| Readibility  | 3      | [          3           ] |                         |
-| Optimization | 3      | [          3           ] |                         |
-| OOP Concepts | 3      | [          3           ] |                         |
-| Output       | 3      | [          3           ] |                         |
-| Correctness  | 3      | [          3           ] |                         |
+| Readibility  | 3      |            3             |                         |
+| Optimization | 3      |            3             |                         |
+| OOP Concepts | 3      |            3             |                         |
+| Output       | 3      |            3             |                         |
+| Correctness  | 3      |            3             |                         |
 | **Report:**  |        |                          |                         |
-| Engaging     | 3      | [          3           ] |                         |
-| Grammar      | 3      | [          3           ] |                         |
-| Structure    | 3      | [          3           ] |                         |
-| Visual       | 3      | [          3           ] |                         |
-| Content      | 3      | [          3           ] |                         |
-| References   | 3      | [          3           ] |                         |
-| Total        | 33     | [          33          ] |                         |
+| Engaging     | 3      |            3             |                         |
+| Grammar      | 3      |            3             |                         |
+| Structure    | 3      |            3             |                         |
+| Visual       | 3      |            3             |                         |
+| Content      | 3      |            3             |                         |
+| References   | 3      |            3             |                         |
+| Total        | 33     |            33            |                         |
 
 
 ### (c) Fill in this section:
@@ -60,17 +60,17 @@ In addition to completing the self-assessment table, enumerate the optimization 
 
 **Optimization**: enumerate the concepts implemented for optimization and their line numbers below.
 
-- *Concept #1*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #2*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #3*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #4*: [insert here], *File name / Line numbers(s)*: [insert here]
+- *Concept #1*: Inline Functions, *File name / Line numbers(s)*: code/project.cpp / 93
+- *Concept #2*: Vectors, *File name / Line numbers(s)*: code/project.cpp / 21
+- *Concept #3*: Passing by Reference, *File name / Line numbers(s)*: code/cms.h / 15
+- *Concept #4*: Prefix Increment, *File name / Line numbers(s)*: code/project.cpp / 53
 
 **OOP Concepts**: enumerate the concepts implemented that demonstrate an OOP approach to programming, and their location in your code (line numbers) below.
 
-- *Concept #1*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #2*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #3*: [insert here], *File name / Line numbers(s)*: [insert here]
-- *Concept #4*: [insert here], *File name / Line numbers(s)*: [insert here]
+- *Concept #1*: Inheritance, *File name / Line numbers(s)*: code/cms.h / 11
+- *Concept #2*: Friendship, *File name / Line numbers(s)*: code/cms.h / 37
+- *Concept #3*: Static Variable Declaration, *File name / Line numbers(s)*: code/cms.h / 40
+- *Concept #4*: 'this' keyword, *File name / Line numbers(s)*: code/cms.h / 49
 
 ## Evaluation Scheme (Rubric)
 The evaluation scheme below defines how your work will be assessed.
