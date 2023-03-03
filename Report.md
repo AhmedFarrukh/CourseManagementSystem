@@ -212,9 +212,9 @@ The specific faculty object is called from the faculty vector, the course select
 Once, information has ben viewed, the user is once again prompted to select what infomation they would like to see, or to exit the view.
 
 Here is what the code output looks like:
-![Ouput 1](output1.png)
-![Ouput 2](output2.png)
-![Ouput 3](output3.png)
+![Ouput 1](images/output1.png)
+![Ouput 2](images/output2.png)
+![Ouput 3](images/output3.png)
 
 
 #### Optimization Techniques
