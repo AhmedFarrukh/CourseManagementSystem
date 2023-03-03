@@ -3,9 +3,11 @@
 
 The aim of my code is to create a simple version for a course management system. 
 
-A course management system is a software tool used to host course information such as syllabi and provide a medium of interaction between teachers and learners<sup>[1]</sup>. In addition, an effective course management system is supposed to host all the neccessary details of a course, allowing a single platform to be acccessed for all resources regarding a course; it is different from a learning management system, which is generally made specifically for remote learning<sup>[2]</sup>. Course management systems are helpful for both remote and in-person teaching enviornments as both greatly benefit from the presence of online access to course resources<sup>[3]</sup>.
+A course management system is a software tool used to host course information such as syllabi and provide a medium of interaction between teachers and learners<sup>[1]</sup>. In addition, an effective course management system is supposed to host all the neccessary details of a course, allowing a single platform to be acccessed for all resources regarding a course<sup>[2]</sup>; it is different from a learning management system, though there is some overlap in the terminology, which is generally a more dynamic system with holistic learning functions<sup>[3]</sup>. Course management systems are helpful for both remote and in-person teaching enviornments as both greatly benefit from the presence of online access to course resources<sup>[4]</sup>.
 
-The program should store data about courses, allow students to view information about the courses they are enrolled in and allow faculty to view and edit information about the courses that they are teaching. In addition, the program should also mantain data about which courses are offered, who is teaching them and who is enrolled in these courses. A course management system, the likes of which are used in universities, mantains large sets of data that need to be stored orderly<sup>[4]</sup>. This challenge needs to be tackled using effective ways of storing and sharing information. 
+A course management system is an essential part of higher education and is used in almost universities globally. At NYU, brightspace, learning a management system, with an integrated course management system is used. Another widely popular course management system, is Google Classroom, a free tool allowing people to create classes and share information online. 
+
+The program should store data about courses, allow students to view information about the courses they are enrolled in and allow faculty to view and edit information about the courses that they are teaching. In addition, the program should also mantain data about which courses are offered, who is teaching them and who is enrolled in these courses. A course management system, the likes of which are used in universities, mantains large sets of data that need to be stored orderly<sup>[5]</sup>. This challenge needs to be tackled using effective ways of storing and sharing information. 
 
 ## Approach
 In terms of the functionality of the system, I implemented the following functions.
@@ -295,8 +297,10 @@ if(inFile.fail()){
 ## References
 <sup>[1]</sup> https://cft.vanderbilt.edu/guides-sub-pages/course-management-systems/#:~:text=A%20course%20management%20system%20
 
-<sup>[2]</sup> https://elearningindustry.com/cms-vs-lms-key-differences-course-management-systems-learning-management-systems
+<sup>[2]</sup> https://cft.vanderbilt.edu/learning-and-course-management-systems/ 
 
-<sup>[2]</sup> http://web2integration.pbworks.com/f/COURSE+MANAGEMENT+SYSTEMS.pdf
+<sup>[3]</sup> https://elearningindustry.com/cms-vs-lms-key-differences-course-management-systems-learning-management-systems
 
-<sup>[4]</sup> https://www.programmingwithbasics.com/2023/01/student-management-system-project-in-cpp.html
+<sup>[4]</sup> http://web2integration.pbworks.com/f/COURSE+MANAGEMENT+SYSTEMS.pdf
+
+<sup>[5]</sup> https://www.programmingwithbasics.com/2023/01/student-management-system-project-in-cpp.html
